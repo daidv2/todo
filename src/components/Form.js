@@ -13,8 +13,7 @@ class Form extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillMount() {
-    let item = this.props.itemSelected;
+  updateItem(item){
     if (item !== null) {
       this.setState({
         task_id: item.id,
@@ -24,15 +23,12 @@ class Form extends Component {
     }
   }
 
+  componentWillMount() {
+    this.updateItem(this.props.itemSelected);
+  }
+
   componentWillReceiveProps(nextProps) {
-    let item = nextProps.itemSelected;
-    if (item !== null) {
-      this.setState({
-        task_id: item.id,
-        task_name: item.name,
-        task_level: item.level
-      });
-    }
+    this.updateItem(nextProps.itemSelected);
   }
 
   handleCancel() {
