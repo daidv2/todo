@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {filter, includes, orderBy as funcOrderBy, remove} from 'lodash';
+
 import './App.css';
 import Title from './components/Title';
 import Control from './components/Control';
@@ -8,11 +9,14 @@ import List from './components/List';
 
 import tasks from './mocks/task';
 
+const uuidv4 = require('uuid/v4');
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       items: tasks,
+      itemSelected: null,
       isShowForm: false,
       strSearch: '',
       orderBy: 'name',
@@ -23,6 +27,8 @@ class App extends Component {
     this.handleSeach = this.handleSeach.bind(this);
     this.handleSort = this.handleSort.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   handleToggleForm() {
@@ -60,6 +66,37 @@ class App extends Component {
     });
   }
 
+  handleSubmit(item) {
+    let items = this.state.items;
+    if (item.id !== '') {
+      // Edit
+      items.forEach((elm, key) => {
+        if (elm.id === item.id) {
+          items[key].name = item.name;
+          items[key].level = +item.level;
+        }
+      });
+    } else {
+      // Add
+      items.push({
+        id: uuidv4(),
+        name: item.name,
+        level: +item.level
+      });
+    }
+    this.setState({
+      items: items,
+      isShowForm: false
+    });
+  }
+
+  handleEdit(item) {
+    this.setState({
+      itemSelected: item,
+      isShowForm: true
+    });
+  }
+
   render() {
     const strSearch = this.state.strSearch;
     // Prevent change this.state.items from itemsOrigin
@@ -83,7 +120,11 @@ class App extends Component {
     items = funcOrderBy(itemsOrigin, [orderBy], [orderDir]);
 
     if (isShowForm) {
-      elmForm = <Form onClickCancel={this.closeForm}/>
+      elmForm = <Form
+        onClickCancel={this.closeForm}
+        onClickSubmit={this.handleSubmit}
+        itemSelected={this.state.itemSelected}
+      />
     }
 
     return (
@@ -109,7 +150,7 @@ class App extends Component {
         {/* End form */}
 
         {/* List */}
-        <List items={items} onClickDelete={this.handleDelete}/>
+        <List items={items} onClickDelete={this.handleDelete} onClickEdit={this.handleEdit}/>
         {/* End list */}
       </div>
     );

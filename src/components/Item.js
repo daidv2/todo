@@ -5,6 +5,7 @@ class Item extends Component {
     super(props);
     this.state = {};
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   showLevelElement(level) {
@@ -17,8 +18,12 @@ class Item extends Component {
     return elmLevel;
   }
 
-  handleDelete(id){
+  handleDelete(id) {
     this.props.onClickDelete(id);
+  }
+
+  handleEdit(item) {
+    this.props.onClickEdit(item);
   }
 
   render() {
@@ -31,8 +36,8 @@ class Item extends Component {
         <td>{item.name}</td>
         <td className="text-center">{this.showLevelElement(item.level)}</td>
         <td>
-          <button type="button" className="btn- btn-warning">Edit</button>
-          <button type="button" onClick={() => this.handleDelete(item.id)} className="btn- btn-danger">Delete</button>
+          <button type="button" onClick={() => this.handleEdit(item)} className="btn- btn-warning">Edit</button>
+          <button type="button" onClick={() => this.handleDelete(item)} className="btn- btn-danger">Delete</button>
         </td>
       </tr>
     );
