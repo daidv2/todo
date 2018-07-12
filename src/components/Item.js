@@ -37,7 +37,7 @@ class Item extends Component {
         <td className="text-center">{this.showLevelElement(item.level)}</td>
         <td>
           <button type="button" onClick={() => this.handleEdit(item)} className="btn- btn-warning">Edit</button>
-          <button type="button" onClick={() => this.handleDelete(item)} className="btn- btn-danger">Delete</button>
+          <button type="button" onClick={() => this.handleDelete(item.id)} className="btn- btn-danger">Delete</button>
         </td>
       </tr>
     );

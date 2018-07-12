@@ -7,7 +7,7 @@ import Control from './components/Control';
 import Form from './components/Form';
 import List from './components/List';
 
-import tasks from './mocks/task';
+//import tasks from './mocks/task';
 
 const uuidv4 = require('uuid/v4');
 
@@ -15,7 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: tasks,
+      items: [],
       itemSelected: null,
       isShowForm: false,
       strSearch: '',
@@ -29,6 +29,13 @@ class App extends Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+  }
+
+  componentWillMount(){
+    let tasks = JSON.parse(localStorage.getItem('tasks'));
+    this.setState({
+      items: tasks
+    });
   }
 
   handleToggleForm() {
@@ -65,6 +72,7 @@ class App extends Component {
     this.setState({
       items: items
     });
+    localStorage.setItem('tasks', JSON.stringify(items));
   }
 
   handleSubmit(item) {
@@ -90,6 +98,8 @@ class App extends Component {
       items: items,
       isShowForm: false
     });
+
+    localStorage.setItem('tasks', JSON.stringify(items));
   }
 
   handleEdit(item) {
