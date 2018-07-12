@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 
 class Sort extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.handleSort = this.handleSort.bind(this);
+  }
+  handleSort(orderBy, orderDir){
+    this.props.onClickSort(orderBy, orderDir);
+  }
   render() {
+    let {orderBy, orderDir} = this.props;
+    let strSort = orderBy + ' - ' + orderDir;
+
     return (
       <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
         <div className="dropdown">
@@ -9,13 +20,13 @@ class Sort extends Component {
             Sort by <span className="caret" />
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a className="dropdown-item" href="#">Name ASC</a></li>
-            <li><a className="dropdown-item" href="#">Name DESC</a></li>
+            <li><a onClick={()=> this.handleSort('name', 'asc')} className="dropdown-item" href="#">Name ASC</a></li>
+            <li><a onClick={()=> this.handleSort('name', 'desc')}className="dropdown-item" href="#">Name DESC</a></li>
             <li className="divider" />
-            <li><a className="dropdown-item" href="#">Level ASC</a></li>
-            <li><a className="dropdown-item" href="#">Level DESC</a></li>
+            <li><a onClick={()=> this.handleSort('level', 'asc')}className="dropdown-item" href="#">Level ASC</a></li>
+            <li><a onClick={()=> this.handleSort('level', 'desc')}className="dropdown-item" href="#">Level DESC</a></li>
           </ul>
-          <span className="label label-success label-medium">NAME - DESC</span>
+          <span className="label label-success label-medium">{strSort.toUpperCase()}</span>
         </div>
       </div>
     );

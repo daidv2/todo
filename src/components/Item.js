@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 
 class Item extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
   showLevelElement(level) {
     let elmLevel = <span className="label label-default">Small</span>;
     if (level === 1) {
@@ -9,6 +15,10 @@ class Item extends Component {
       elmLevel = <span className="label label-danger">High</span>;
     }
     return elmLevel;
+  }
+
+  handleDelete(id){
+    this.props.onClickDelete(id);
   }
 
   render() {
@@ -22,7 +32,7 @@ class Item extends Component {
         <td className="text-center">{this.showLevelElement(item.level)}</td>
         <td>
           <button type="button" className="btn- btn-warning">Edit</button>
-          <button type="button" className="btn- btn-danger">Delete</button>
+          <button type="button" onClick={() => this.handleDelete(item.id)} className="btn- btn-danger">Delete</button>
         </td>
       </tr>
     );

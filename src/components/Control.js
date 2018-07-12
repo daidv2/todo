@@ -6,6 +6,7 @@ import AddBtn from './AddBtn';
 
 class Control extends Component {
   render() {
+    let {orderBy, orderDir} = this.props;
     return (
       <div className="row">
         {/* Search */}
@@ -13,7 +14,7 @@ class Control extends Component {
         {/* End seach */}
 
         {/* Sort */}
-        <Sort />
+        <Sort orderBy={orderBy} orderDir={orderDir} onClickSort={this.props.onClickSort}/>
         {/* End sort */}
 
         {/* Add */}
