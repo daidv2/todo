@@ -15,7 +15,18 @@ class Form extends Component {
 
   componentWillMount() {
     let item = this.props.itemSelected;
-    if (item.id !== '') {
+    if (item !== null) {
+      this.setState({
+        task_id: item.id,
+        task_name: item.name,
+        task_level: item.level
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let item = nextProps.itemSelected;
+    if (item !== null) {
       this.setState({
         task_id: item.id,
         task_name: item.name,
@@ -48,26 +59,18 @@ class Form extends Component {
   }
 
   render() {
-    let item = this.props.itemSelected;
-    let name = this.state.task_name;
-    let level = this.state.task_level;
-    if (item.id !== '') {
-      name = item.name;
-      level = item.level;
-    }
-
     return (
       <div className="row">
         <div className="offset-md-7 col-md-5">
           <form onSubmit={this.handleSubmit} className="form-inline">
             <div className="form-group">
               <label className="sr-only">label</label>
-              <input type="text" name="task_name" value={name} onChange={this.handleChange}
+              <input type="text" name="task_name" value={this.state.task_name} onChange={this.handleChange}
                      className="form-control" placeholder="Task Name" style={{width: 188}}/>
             </div>
             <div className="form-group">
               <label className="sr-only">label</label>
-              <select name="task_level" value={level} onChange={this.handleChange}
+              <select name="task_level" value={this.state.task_level} onChange={this.handleChange}
                       className="form-control" required="required">
                 <option value={0}>Small</option>
                 <option value={1}>Medium</option>
