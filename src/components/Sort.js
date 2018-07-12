@@ -20,11 +20,11 @@ class Sort extends Component {
             Sort by <span className="caret" />
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a onClick={()=> this.handleSort('name', 'asc')} className="dropdown-item" href="#">Name ASC</a></li>
-            <li><a onClick={()=> this.handleSort('name', 'desc')}className="dropdown-item" href="#">Name DESC</a></li>
+            <li><a onClick={()=> this.handleSort('name', 'asc')} className="dropdown-item">Name ASC</a></li>
+            <li><a onClick={()=> this.handleSort('name', 'desc')}className="dropdown-item">Name DESC</a></li>
             <li className="divider" />
-            <li><a onClick={()=> this.handleSort('level', 'asc')}className="dropdown-item" href="#">Level ASC</a></li>
-            <li><a onClick={()=> this.handleSort('level', 'desc')}className="dropdown-item" href="#">Level DESC</a></li>
+            <li><a onClick={()=> this.handleSort('level', 'asc')}className="dropdown-item">Level ASC</a></li>
+            <li><a onClick={()=> this.handleSort('level', 'desc')}className="dropdown-item">Level DESC</a></li>
           </ul>
           <span className="label label-success label-medium">{strSort.toUpperCase()}</span>
         </div>

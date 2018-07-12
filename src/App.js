@@ -32,7 +32,7 @@ class App extends Component {
   }
 
   componentWillMount(){
-    let tasks = JSON.parse(localStorage.getItem('tasks'));
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     this.setState({
       items: tasks
     });
