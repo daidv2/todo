@@ -129,7 +129,7 @@ class App extends Component {
     }
 
     // Sort items
-    items = funcOrderBy(itemsOrigin, [orderBy], [orderDir]);
+    items = funcOrderBy(items, [orderBy], [orderDir]);
 
     if (isShowForm) {
       elmForm = <Form
