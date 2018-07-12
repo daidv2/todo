@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {filter, includes, orderBy as funcOrderBy, remove} from 'lodash';
+import {filter, includes, orderBy as funcOrderBy, remove, reject} from 'lodash';
 
 import './App.css';
 import Title from './components/Title';
@@ -69,22 +69,23 @@ class App extends Component {
 
   handleSubmit(item) {
     let items = this.state.items;
+    let id = null;
+
     if (item.id !== '') {
       // Edit
-      items.forEach((elm, key) => {
-        if (elm.id === item.id) {
-          items[key].name = item.name;
-          items[key].level = +item.level;
-        }
-      });
+      items = reject(items, {id: item.id});
+      id = item.id;
     } else {
       // Add
-      items.push({
-        id: uuidv4(),
-        name: item.name,
-        level: +item.level
-      });
+      id = uuidv4();
     }
+
+    items.push({
+      id: id,
+      name: item.name,
+      level: +item.level
+    });
+
     this.setState({
       items: items,
       isShowForm: false
