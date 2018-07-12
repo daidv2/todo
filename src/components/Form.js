@@ -1,6 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 class Form extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.handleCancel = this.handleCancel.bind(this);
+  }
+
+  handleCancel() {
+    this.props.onClickCancel();
+  }
+
   render() {
     return (
       <div className="row">
@@ -8,7 +18,7 @@ class Form extends Component {
           <form action="#" method="POST" className="form-inline">
             <div className="form-group">
               <label className="sr-only">label</label>
-              <input type="text" className="form-control" placeholder="Task Name" ref="task_name" style={{width: 188}} />
+              <input type="text" className="form-control" placeholder="Task Name" ref="task_name" style={{width: 188}}/>
             </div>
             <div className="form-group">
               <label className="sr-only">label</label>
@@ -19,7 +29,7 @@ class Form extends Component {
               </select>
             </div>
             <button type="button" className="btn btn-primary">Submit</button>
-            <button type="button" className="btn btn-default">Cancel</button>
+            <button type="button" onClick={this.handleCancel} className="btn btn-default">Cancel</button>
           </form>
         </div>
       </div>
